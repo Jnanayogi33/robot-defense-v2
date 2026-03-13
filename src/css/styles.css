@@ -1,0 +1,109 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: #0a0a1a;
+  color: #e0e0ff;
+  font-family: 'Courier New', monospace;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+h1 {
+  margin: 12px 0 4px;
+  font-size: 22px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffcc88;
+}
+#hud {
+  display: flex;
+  gap: 24px;
+  margin: 6px 0;
+  font-size: 14px;
+}
+#hud span { color: #aaf; }
+#hud .val { color: #0ff; font-weight: bold; }
+#shop {
+  display: flex;
+  gap: 10px;
+  margin: 6px 0 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.tower-btn {
+  background: #1a1a3a;
+  border: 1px solid #334;
+  border-radius: 6px;
+  padding: 6px 12px;
+  color: #cce;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 12px;
+  transition: 0.2s;
+  text-align: center;
+  min-width: 100px;
+}
+.tower-btn:hover { border-color: #0ff; box-shadow: 0 0 8px #0ff4; }
+.tower-btn.selected { border-color: #0f0; box-shadow: 0 0 12px #0f04; background: #1a2a1a; }
+.tower-btn .name { font-weight: bold; color: #0ff; }
+.tower-btn .cost { color: #ff0; font-size: 11px; }
+.tower-btn .desc { color: #889; font-size: 10px; }
+canvas {
+  border: 1px solid #223;
+  border-radius: 4px;
+  cursor: crosshair;
+}
+#msg {
+  margin-top: 6px;
+  font-size: 13px;
+  color: #f88;
+  height: 18px;
+}
+#controls {
+  margin: 6px 0;
+  display: flex;
+  gap: 10px;
+}
+#controls button {
+  background: #1a1a3a;
+  border: 1px solid #446;
+  border-radius: 4px;
+  padding: 6px 16px;
+  color: #aaf;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 13px;
+}
+#controls button:hover { border-color: #0ff; }
+#overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000a;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+}
+#overlay.show { display: flex; }
+#overlay-box {
+  background: #111;
+  border: 2px solid #0ff;
+  border-radius: 12px;
+  padding: 30px 40px;
+  text-align: center;
+}
+#overlay-box h2 { color: #0ff; font-size: 24px; margin-bottom: 10px; }
+#overlay-box p { margin: 6px 0; }
+#overlay-box button {
+  margin-top: 14px;
+  background: #0a2a2a;
+  border: 1px solid #0ff;
+  color: #0ff;
+  padding: 8px 24px;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
