@@ -1,0 +1,24 @@
+{
+  "name": "claude_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jnanayogi33/robot-defense-v2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Jnanayogi33/robot-defense-v2/issues"
+  },
+  "homepage": "https://github.com/Jnanayogi33/robot-defense-v2#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
+  }
+}
