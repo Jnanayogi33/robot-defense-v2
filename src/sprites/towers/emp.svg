@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 32">
+  <defs>
+    <linearGradient id="emp-shaft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#555a60"/>
+      <stop offset="30%" stop-color="#70757b"/>
+      <stop offset="70%" stop-color="#555a60"/>
+      <stop offset="100%" stop-color="#3a3f44"/>
+    </linearGradient>
+    <linearGradient id="emp-base-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a5f65"/>
+      <stop offset="100%" stop-color="#2a2e32"/>
+    </linearGradient>
+    <radialGradient id="emp-orb" cx="0.45" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="25%" stop-color="#ffff88"/>
+      <stop offset="55%" stop-color="#ffdd00"/>
+      <stop offset="80%" stop-color="#bb8800"/>
+      <stop offset="100%" stop-color="#664400" stop-opacity="0.5"/>
+    </radialGradient>
+    <radialGradient id="emp-orb-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffff00" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#ffff00" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="emp-ring" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a7f85"/>
+      <stop offset="100%" stop-color="#3a3f44"/>
+    </linearGradient>
+    <filter id="emp-sh" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="0.5" dy="1" stdDeviation="0.6" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="emp-orb-filter" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Base housing -->
+  <rect x="6" y="25" width="12" height="6" rx="1.2" fill="url(#emp-base-body)" filter="url(#emp-sh)"/>
+  <rect x="6" y="25" width="12" height="3" rx="1.2" fill="#5a5f65" opacity="0.4"/>
+  <line x1="7" y1="28" x2="17" y2="28" stroke="#1e2226" stroke-width="0.3"/>
+  <!-- Central shaft -->
+  <rect x="10" y="6" width="4" height="20" rx="0.8" fill="url(#emp-shaft)" filter="url(#emp-sh)"/>
+  <!-- Yellow accent panel lines on shaft -->
+  <line x1="10.5" y1="8" x2="10.5" y2="24" stroke="#ff0" stroke-width="0.3" opacity="0.5"/>
+  <line x1="13.5" y1="8" x2="13.5" y2="24" stroke="#ff0" stroke-width="0.3" opacity="0.5"/>
+  <!-- Concentric ring 1 (top, smallest) -->
+  <ellipse cx="12" cy="12" rx="5" ry="1.5" fill="none" stroke="url(#emp-ring)" stroke-width="1.2"/>
+  <ellipse cx="12" cy="12" rx="5" ry="1.5" fill="none" stroke="#ff0" stroke-width="0.2" opacity="0.4"/>
+  <!-- Concentric ring 2 (middle) -->
+  <ellipse cx="12" cy="17" rx="6.5" ry="1.8" fill="none" stroke="url(#emp-ring)" stroke-width="1.3"/>
+  <ellipse cx="12" cy="17" rx="6.5" ry="1.8" fill="none" stroke="#ff0" stroke-width="0.2" opacity="0.4"/>
+  <!-- Concentric ring 3 (bottom, largest) -->
+  <ellipse cx="12" cy="22" rx="8" ry="2.1" fill="none" stroke="url(#emp-ring)" stroke-width="1.4"/>
+  <ellipse cx="12" cy="22" rx="8" ry="2.1" fill="none" stroke="#ff0" stroke-width="0.2" opacity="0.4"/>
+  <!-- Orb glow aura -->
+  <circle cx="12" cy="5" r="5" fill="url(#emp-orb-glow)"/>
+  <!-- Glowing yellow orb at top -->
+  <circle cx="12" cy="5" r="3" fill="url(#emp-orb)" filter="url(#emp-orb-filter)"/>
+  <circle cx="11.5" cy="4.2" r="1" fill="#fff" opacity="0.5"/>
+  <!-- Shaft panel details -->
+  <line x1="10.3" y1="14" x2="13.7" y2="14" stroke="#2a2e33" stroke-width="0.3"/>
+  <line x1="10.3" y1="19" x2="13.7" y2="19" stroke="#2a2e33" stroke-width="0.3"/>
+</svg>

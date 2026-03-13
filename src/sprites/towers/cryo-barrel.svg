@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 14">
+  <defs>
+    <linearGradient id="cryo-brl-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a8898"/>
+      <stop offset="40%" stop-color="#4a6878"/>
+      <stop offset="100%" stop-color="#2a4858"/>
+    </linearGradient>
+    <linearGradient id="cryo-brl-hi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a98a8" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#4a6878" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="cryo-nozzle-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="40%" stop-color="#aaeeff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#6eeeff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="cryo-brl-sh" x="-3%" y="-8%" width="110%" height="125%">
+      <feDropShadow dx="0" dy="0.5" stdDeviation="0.4" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <!-- Main barrel body - flared toward tip -->
+  <polygon points="0,5 0,9 18,11.5 18,2.5" fill="url(#cryo-brl-body)" filter="url(#cryo-brl-sh)"/>
+  <!-- Top highlight -->
+  <polygon points="0,5 18,2.5 18,5 0,6.5" fill="url(#cryo-brl-hi)"/>
+  <!-- Cooling fin ridges -->
+  <line x1="4" y1="4.5" x2="4" y2="9.5" stroke="#3a5868" stroke-width="0.8"/>
+  <line x1="4" y1="4.5" x2="4" y2="9.5" stroke="#7a98a8" stroke-width="0.2" opacity="0.5"/>
+  <line x1="7" y1="3.8" x2="7" y2="10.2" stroke="#3a5868" stroke-width="0.8"/>
+  <line x1="7" y1="3.8" x2="7" y2="10.2" stroke="#7a98a8" stroke-width="0.2" opacity="0.5"/>
+  <line x1="10" y1="3.3" x2="10" y2="10.7" stroke="#3a5868" stroke-width="0.8"/>
+  <line x1="10" y1="3.3" x2="10" y2="10.7" stroke="#7a98a8" stroke-width="0.2" opacity="0.5"/>
+  <line x1="13" y1="2.9" x2="13" y2="11.1" stroke="#3a5868" stroke-width="0.8"/>
+  <line x1="13" y1="2.9" x2="13" y2="11.1" stroke="#7a98a8" stroke-width="0.2" opacity="0.5"/>
+  <line x1="16" y1="2.6" x2="16" y2="11.4" stroke="#3a5868" stroke-width="0.8"/>
+  <line x1="16" y1="2.6" x2="16" y2="11.4" stroke="#7a98a8" stroke-width="0.2" opacity="0.5"/>
+  <!-- Nozzle flare opening -->
+  <polygon points="18,2 18,12 22,13 22,1" fill="#3a5868" stroke="#2a4555" stroke-width="0.3"/>
+  <polygon points="18,2 22,1 22,5 18,4.5" fill="#5a7888" opacity="0.4"/>
+  <!-- Base mounting -->
+  <rect x="0" y="4" width="2" height="6" rx="0.5" fill="#3a5565" stroke="#2a4555" stroke-width="0.3"/>
+  <!-- Frost particles at nozzle tip -->
+  <circle cx="21" cy="3" r="0.6" fill="#6ef" opacity="0.7"/>
+  <circle cx="22.5" cy="5" r="0.4" fill="#aef" opacity="0.6"/>
+  <circle cx="22" cy="10" r="0.5" fill="#6ef" opacity="0.7"/>
+  <circle cx="23" cy="7" r="0.7" fill="#cff" opacity="0.5"/>
+  <circle cx="21.5" cy="12" r="0.4" fill="#aef" opacity="0.5"/>
+  <!-- Frost crystal -->
+  <line x1="22.5" y1="6.5" x2="23.5" y2="6.5" stroke="#cff" stroke-width="0.3" opacity="0.6"/>
+  <line x1="23" y1="6" x2="23" y2="7" stroke="#cff" stroke-width="0.3" opacity="0.6"/>
+  <!-- Nozzle frost glow -->
+  <ellipse cx="22" cy="7" rx="2.5" ry="4" fill="url(#cryo-nozzle-glow)"/>
+</svg>

@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 16">
+  <defs>
+    <!-- Central body gradient -->
+    <linearGradient id="drone-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#558"/>
+      <stop offset="50%" stop-color="#447"/>
+      <stop offset="100%" stop-color="#336"/>
+    </linearGradient>
+    <!-- Body highlight -->
+    <linearGradient id="drone-body-top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#669"/>
+      <stop offset="100%" stop-color="#447"/>
+    </linearGradient>
+    <!-- Arm gradient -->
+    <linearGradient id="drone-arm" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#556"/>
+      <stop offset="100%" stop-color="#334"/>
+    </linearGradient>
+    <!-- Rotor disc gradient -->
+    <radialGradient id="drone-rotor" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#88aacc" stop-opacity="0.15"/>
+      <stop offset="40%" stop-color="#6699bb" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#4477aa" stop-opacity="0.05"/>
+    </radialGradient>
+    <!-- Eye camera glow -->
+    <radialGradient id="drone-eye-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="30%" stop-color="#88ccff" stop-opacity="0.9"/>
+      <stop offset="60%" stop-color="#44aaff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#44aaff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Motor mount gradient -->
+    <radialGradient id="drone-motor" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#666"/>
+      <stop offset="100%" stop-color="#444"/>
+    </radialGradient>
+    <!-- Eye glow filter -->
+    <filter id="drone-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1"/>
+    </filter>
+    <!-- Rotor motion blur -->
+    <filter id="drone-rotor-blur" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.3"/>
+    </filter>
+  </defs>
+
+  <!-- Cross-shaped frame arms -->
+  <!-- Top-left arm -->
+  <line x1="10" y1="8" x2="3.5" y2="3.5" stroke="url(#drone-arm)" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Top-right arm -->
+  <line x1="10" y1="8" x2="16.5" y2="3.5" stroke="url(#drone-arm)" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Bottom-left arm -->
+  <line x1="10" y1="8" x2="3.5" y2="12.5" stroke="url(#drone-arm)" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Bottom-right arm -->
+  <line x1="10" y1="8" x2="16.5" y2="12.5" stroke="url(#drone-arm)" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Rotor discs (semi-transparent spinning) -->
+  <circle cx="3.5" cy="3.5" r="2.8" fill="url(#drone-rotor)" stroke="#6688aa" stroke-width="0.2" opacity="0.7" filter="url(#drone-rotor-blur)"/>
+  <circle cx="16.5" cy="3.5" r="2.8" fill="url(#drone-rotor)" stroke="#6688aa" stroke-width="0.2" opacity="0.7" filter="url(#drone-rotor-blur)"/>
+  <circle cx="3.5" cy="12.5" r="2.8" fill="url(#drone-rotor)" stroke="#6688aa" stroke-width="0.2" opacity="0.7" filter="url(#drone-rotor-blur)"/>
+  <circle cx="16.5" cy="12.5" r="2.8" fill="url(#drone-rotor)" stroke="#6688aa" stroke-width="0.2" opacity="0.7" filter="url(#drone-rotor-blur)"/>
+
+  <!-- Motor mounts -->
+  <circle cx="3.5" cy="3.5" r="1" fill="url(#drone-motor)" stroke="#333" stroke-width="0.3"/>
+  <circle cx="16.5" cy="3.5" r="1" fill="url(#drone-motor)" stroke="#333" stroke-width="0.3"/>
+  <circle cx="3.5" cy="12.5" r="1" fill="url(#drone-motor)" stroke="#333" stroke-width="0.3"/>
+  <circle cx="16.5" cy="12.5" r="1" fill="url(#drone-motor)" stroke="#333" stroke-width="0.3"/>
+  <!-- Motor center dots -->
+  <circle cx="3.5" cy="3.5" r="0.35" fill="#222"/>
+  <circle cx="16.5" cy="3.5" r="0.35" fill="#222"/>
+  <circle cx="3.5" cy="12.5" r="0.35" fill="#222"/>
+  <circle cx="16.5" cy="12.5" r="0.35" fill="#222"/>
+
+  <!-- Central hexagonal body -->
+  <polygon points="10,5.2 12.5,6.6 12.5,9.4 10,10.8 7.5,9.4 7.5,6.6" fill="url(#drone-body)" stroke="#224" stroke-width="0.5"/>
+  <!-- Body top plate -->
+  <polygon points="10,5.6 12,6.8 12,8 10,9 8,8 8,6.8" fill="url(#drone-body-top)" opacity="0.6"/>
+  <!-- Panel lines -->
+  <line x1="10" y1="5.5" x2="10" y2="10.5" stroke="#224" stroke-width="0.3" opacity="0.4"/>
+  <line x1="7.8" y1="8" x2="12.2" y2="8" stroke="#224" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Central eye/camera glow layer -->
+  <circle cx="10" cy="8" r="2" fill="url(#drone-eye-glow)" filter="url(#drone-glow)"/>
+  <!-- Eye/camera lens -->
+  <circle cx="10" cy="8" r="1.3" fill="#44aaff" stroke="#2266aa" stroke-width="0.3"/>
+  <!-- Inner lens -->
+  <circle cx="10" cy="8" r="0.7" fill="#88ccff"/>
+  <!-- Pupil/sensor -->
+  <circle cx="10" cy="8" r="0.35" fill="#fff"/>
+  <!-- Lens highlight -->
+  <circle cx="9.5" cy="7.5" r="0.25" fill="#fff" opacity="0.6"/>
+</svg>

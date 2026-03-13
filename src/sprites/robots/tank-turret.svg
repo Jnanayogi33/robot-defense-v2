@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10">
+  <defs>
+    <!-- Turret dome gradient -->
+    <radialGradient id="turret-dome" cx="0.4" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#b66"/>
+      <stop offset="50%" stop-color="#944"/>
+      <stop offset="100%" stop-color="#733"/>
+    </radialGradient>
+    <!-- Turret base gradient -->
+    <linearGradient id="turret-base" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#955"/>
+      <stop offset="100%" stop-color="#622"/>
+    </linearGradient>
+    <!-- Barrel metallic -->
+    <linearGradient id="turret-barrel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#888"/>
+      <stop offset="40%" stop-color="#666"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+    <!-- Muzzle brake gradient -->
+    <linearGradient id="turret-muzzle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#777"/>
+      <stop offset="100%" stop-color="#444"/>
+    </linearGradient>
+    <!-- Sensor glow -->
+    <radialGradient id="turret-sensor-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ff6644" stop-opacity="1"/>
+      <stop offset="100%" stop-color="#ff0000" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Sensor glow filter -->
+    <filter id="turret-glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.5"/>
+    </filter>
+  </defs>
+
+  <!-- Barrel -->
+  <rect x="10" y="4" width="8" height="2" rx="0.3" fill="url(#turret-barrel)" stroke="#444" stroke-width="0.3"/>
+  <!-- Barrel ridge lines -->
+  <line x1="12" y1="4.2" x2="12" y2="5.8" stroke="#777" stroke-width="0.2" opacity="0.5"/>
+  <line x1="14" y1="4.2" x2="14" y2="5.8" stroke="#777" stroke-width="0.2" opacity="0.5"/>
+
+  <!-- Muzzle brake -->
+  <rect x="17.5" y="3.5" width="2" height="3" rx="0.3" fill="url(#turret-muzzle)" stroke="#333" stroke-width="0.3"/>
+  <!-- Muzzle brake slots -->
+  <line x1="18" y1="3.8" x2="18" y2="6.2" stroke="#555" stroke-width="0.3"/>
+  <line x1="18.8" y1="3.8" x2="18.8" y2="6.2" stroke="#555" stroke-width="0.3"/>
+  <!-- Muzzle bore -->
+  <circle cx="19.3" cy="5" r="0.5" fill="#222"/>
+
+  <!-- Turret base ring -->
+  <ellipse cx="6.5" cy="5" rx="5.5" ry="4.5" fill="url(#turret-base)" stroke="#511" stroke-width="0.5"/>
+
+  <!-- Turret dome -->
+  <ellipse cx="6.5" cy="5" rx="4.5" ry="3.5" fill="url(#turret-dome)" stroke="#622" stroke-width="0.4"/>
+
+  <!-- Armor panel lines on dome -->
+  <line x1="3" y1="4" x2="10" y2="4" stroke="#733" stroke-width="0.3" opacity="0.4"/>
+  <line x1="3" y1="6" x2="10" y2="6" stroke="#733" stroke-width="0.3" opacity="0.4"/>
+  <line x1="6.5" y1="2" x2="6.5" y2="8" stroke="#733" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Commander's hatch -->
+  <circle cx="5" cy="4" r="1.2" fill="#844" stroke="#622" stroke-width="0.4"/>
+  <circle cx="5" cy="4" r="0.6" fill="#733" stroke="#622" stroke-width="0.2"/>
+  <!-- Hatch handle -->
+  <line x1="4.3" y1="4" x2="5.7" y2="4" stroke="#999" stroke-width="0.3"/>
+
+  <!-- Sensor/light -->
+  <circle cx="8.5" cy="3.5" r="0.8" fill="url(#turret-sensor-glow)" filter="url(#turret-glow)"/>
+  <circle cx="8.5" cy="3.5" r="0.4" fill="#f33"/>
+
+  <!-- Turret highlight -->
+  <ellipse cx="5" cy="3.5" rx="2" ry="1" fill="none" stroke="#c88" stroke-width="0.2" opacity="0.3"/>
+</svg>

@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 34">
+  <defs>
+    <linearGradient id="tesla-pillar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#556068"/>
+      <stop offset="35%" stop-color="#6a757d"/>
+      <stop offset="65%" stop-color="#556068"/>
+      <stop offset="100%" stop-color="#3a454d"/>
+    </linearGradient>
+    <linearGradient id="tesla-coil-wind" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8a6535"/>
+      <stop offset="30%" stop-color="#c9944a"/>
+      <stop offset="60%" stop-color="#daa55c"/>
+      <stop offset="100%" stop-color="#8a6535"/>
+    </linearGradient>
+    <linearGradient id="tesla-base-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a6570"/>
+      <stop offset="100%" stop-color="#2a3540"/>
+    </linearGradient>
+    <radialGradient id="tesla-orb" cx="0.45" cy="0.4" r="0.5">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="20%" stop-color="#ccffff"/>
+      <stop offset="50%" stop-color="#66dddd"/>
+      <stop offset="80%" stop-color="#228888"/>
+      <stop offset="100%" stop-color="#114444" stop-opacity="0.4"/>
+    </radialGradient>
+    <radialGradient id="tesla-orb-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#88ffff" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#88ffff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="tesla-sh" x="-5%" y="-5%" width="115%" height="115%">
+      <feDropShadow dx="0.5" dy="1" stdDeviation="0.6" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <filter id="tesla-orb-filter" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1.3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Base housing -->
+  <rect x="3" y="27" width="18" height="6" rx="1.2" fill="url(#tesla-base-body)" filter="url(#tesla-sh)"/>
+  <line x1="4" y1="30" x2="20" y2="30" stroke="#1e2830" stroke-width="0.3"/>
+  <!-- Central pillar -->
+  <rect x="10.5" y="10" width="3" height="18" rx="0.5" fill="url(#tesla-pillar)"/>
+  <!-- Left pillar -->
+  <rect x="3" y="8" width="4" height="20" rx="0.8" fill="url(#tesla-pillar)" filter="url(#tesla-sh)"/>
+  <!-- Left coil windings -->
+  <line x1="3" y1="10" x2="7" y2="10" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="3" y1="12" x2="7" y2="12" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="3" y1="14" x2="7" y2="14" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="3" y1="16" x2="7" y2="16" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="3" y1="18" x2="7" y2="18" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="3" y1="20" x2="7" y2="20" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="3" y1="22" x2="7" y2="22" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="3" y1="24" x2="7" y2="24" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <!-- Right pillar -->
+  <rect x="17" y="8" width="4" height="20" rx="0.8" fill="url(#tesla-pillar)" filter="url(#tesla-sh)"/>
+  <!-- Right coil windings -->
+  <line x1="17" y1="10" x2="21" y2="10" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="17" y1="12" x2="21" y2="12" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="17" y1="14" x2="21" y2="14" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="17" y1="16" x2="21" y2="16" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="17" y1="18" x2="21" y2="18" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="17" y1="20" x2="21" y2="20" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="17" y1="22" x2="21" y2="22" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <line x1="17" y1="24" x2="21" y2="24" stroke="url(#tesla-coil-wind)" stroke-width="0.8"/>
+  <!-- Cross beam at top -->
+  <rect x="5" y="8" width="14" height="2.5" rx="0.5" fill="#4a555d" stroke="#2a3540" stroke-width="0.3"/>
+  <!-- Orb glow aura -->
+  <circle cx="12" cy="5" r="5.5" fill="url(#tesla-orb-glow)"/>
+  <!-- Glowing orb at top -->
+  <circle cx="12" cy="5" r="3.2" fill="url(#tesla-orb)" filter="url(#tesla-orb-filter)"/>
+  <circle cx="11.3" cy="4" r="1.1" fill="#fff" opacity="0.45"/>
+  <!-- Accent lines on pillars -->
+  <line x1="5" y1="8.5" x2="5" y2="27" stroke="#8ff" stroke-width="0.25" opacity="0.4"/>
+  <line x1="19" y1="8.5" x2="19" y2="27" stroke="#8ff" stroke-width="0.25" opacity="0.4"/>
+</svg>

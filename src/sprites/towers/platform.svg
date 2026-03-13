@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 28">
+  <defs>
+    <linearGradient id="plat-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6b6f73"/>
+      <stop offset="40%" stop-color="#4a4e52"/>
+      <stop offset="100%" stop-color="#2a2d30"/>
+    </linearGradient>
+    <linearGradient id="plat-bevel-top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#8a8f94"/>
+      <stop offset="100%" stop-color="#5a5e62"/>
+    </linearGradient>
+    <linearGradient id="plat-bevel-bot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#35383b"/>
+      <stop offset="100%" stop-color="#1a1c1e"/>
+    </linearGradient>
+    <radialGradient id="plat-rivet" cx="0.5" cy="0.35" r="0.5">
+      <stop offset="0%" stop-color="#9a9ea3"/>
+      <stop offset="60%" stop-color="#55585c"/>
+      <stop offset="100%" stop-color="#35383b"/>
+    </radialGradient>
+    <filter id="plat-shadow" x="-10%" y="-10%" width="130%" height="140%">
+      <feDropShadow dx="0" dy="2" stdDeviation="1.5" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <!-- Shadow base -->
+  <polygon points="4,24 18,28 32,24 32,18 18,22 4,18" fill="#0a0a0a" opacity="0.4"/>
+  <!-- Bottom bevel (shadow edge) -->
+  <polygon points="3,17 18,22 33,17 33,14 18,19 3,14" fill="url(#plat-bevel-bot)"/>
+  <!-- Main platform face -->
+  <polygon points="3,10 18,15 33,10 33,14 18,19 3,14" fill="url(#plat-body)" filter="url(#plat-shadow)"/>
+  <!-- Top bevel (highlight edge) -->
+  <polygon points="3,10 18,5 33,10 18,15" fill="url(#plat-bevel-top)"/>
+  <!-- Left highlight edge -->
+  <line x1="3" y1="10" x2="18" y2="5" stroke="#9a9fa5" stroke-width="0.5" opacity="0.6"/>
+  <!-- Right shadow edge -->
+  <line x1="33" y1="10" x2="18" y2="5" stroke="#2a2d30" stroke-width="0.5" opacity="0.5"/>
+  <!-- Panel line across middle -->
+  <line x1="6" y1="12" x2="30" y2="12" stroke="#1e2023" stroke-width="0.5" opacity="0.7"/>
+  <line x1="6" y1="12.4" x2="30" y2="12.4" stroke="#6e7276" stroke-width="0.3" opacity="0.3"/>
+  <!-- Corner rivets -->
+  <circle cx="10" cy="9" r="1.1" fill="url(#plat-rivet)" stroke="#2a2d30" stroke-width="0.3"/>
+  <circle cx="26" cy="9" r="1.1" fill="url(#plat-rivet)" stroke="#2a2d30" stroke-width="0.3"/>
+  <circle cx="10" cy="15" r="1.1" fill="url(#plat-rivet)" stroke="#2a2d30" stroke-width="0.3"/>
+  <circle cx="26" cy="15" r="1.1" fill="url(#plat-rivet)" stroke="#2a2d30" stroke-width="0.3"/>
+</svg>

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 26 14">
+  <defs>
+    <linearGradient id="plasma-brl-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5a4868"/>
+      <stop offset="40%" stop-color="#3a2848"/>
+      <stop offset="100%" stop-color="#221830"/>
+    </linearGradient>
+    <linearGradient id="plasma-brl-hi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a5878" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#3a2848" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="plasma-nozzle" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="35%" stop-color="#ff66ff"/>
+      <stop offset="100%" stop-color="#880088"/>
+    </radialGradient>
+    <filter id="plasma-brl-sh" x="-3%" y="-8%" width="110%" height="125%">
+      <feDropShadow dx="0" dy="0.5" stdDeviation="0.4" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+    <filter id="plasma-noz-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="0.8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Upper barrel -->
+  <rect x="0" y="1" width="22" height="3.5" rx="0.8" fill="url(#plasma-brl-body)" filter="url(#plasma-brl-sh)"/>
+  <rect x="0" y="1" width="22" height="1.5" rx="0.8" fill="url(#plasma-brl-hi)"/>
+  <!-- Lower barrel -->
+  <rect x="0" y="9.5" width="22" height="3.5" rx="0.8" fill="url(#plasma-brl-body)" filter="url(#plasma-brl-sh)"/>
+  <rect x="0" y="9.5" width="22" height="1.5" rx="0.8" fill="url(#plasma-brl-hi)"/>
+  <!-- Energy conduit lines connecting barrels -->
+  <rect x="3" y="5" width="1" height="4" rx="0.3" fill="#3a2048" stroke="#f0f" stroke-width="0.2" opacity="0.7"/>
+  <rect x="9" y="5.2" width="1" height="3.6" rx="0.3" fill="#3a2048" stroke="#f0f" stroke-width="0.2" opacity="0.7"/>
+  <rect x="15" y="5.4" width="1" height="3.2" rx="0.3" fill="#3a2048" stroke="#f0f" stroke-width="0.2" opacity="0.7"/>
+  <!-- Energy glow between barrels -->
+  <line x1="3.5" y1="5.5" x2="3.5" y2="8.5" stroke="#f0f" stroke-width="0.3" opacity="0.3"/>
+  <line x1="9.5" y1="5.5" x2="9.5" y2="8.5" stroke="#f0f" stroke-width="0.3" opacity="0.3"/>
+  <line x1="15.5" y1="5.5" x2="15.5" y2="8.5" stroke="#f0f" stroke-width="0.3" opacity="0.3"/>
+  <!-- Base mounting -->
+  <rect x="0" y="0.5" width="2" height="5" rx="0.5" fill="#2e2040" stroke="#1a1228" stroke-width="0.3"/>
+  <rect x="0" y="8.5" width="2" height="5" rx="0.5" fill="#2e2040" stroke="#1a1228" stroke-width="0.3"/>
+  <!-- Nozzle tips -->
+  <circle cx="23.5" cy="2.75" r="1.6" fill="url(#plasma-nozzle)" filter="url(#plasma-noz-glow)"/>
+  <circle cx="23.5" cy="11.25" r="1.6" fill="url(#plasma-nozzle)" filter="url(#plasma-noz-glow)"/>
+  <!-- Panel detail lines -->
+  <line x1="7" y1="1.3" x2="7" y2="4.2" stroke="#1a1228" stroke-width="0.3"/>
+  <line x1="14" y1="1.3" x2="14" y2="4.2" stroke="#1a1228" stroke-width="0.3"/>
+  <line x1="7" y1="9.8" x2="7" y2="12.7" stroke="#1a1228" stroke-width="0.3"/>
+  <line x1="14" y1="9.8" x2="14" y2="12.7" stroke="#1a1228" stroke-width="0.3"/>
+</svg>

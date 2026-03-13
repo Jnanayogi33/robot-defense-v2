@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 28 10">
+  <defs>
+    <linearGradient id="laser-brl-body" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6a7080"/>
+      <stop offset="40%" stop-color="#4a5060"/>
+      <stop offset="100%" stop-color="#303540"/>
+    </linearGradient>
+    <linearGradient id="laser-brl-highlight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7a8090" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#4a5060" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="laser-lens" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="30%" stop-color="#88ffff"/>
+      <stop offset="65%" stop-color="#00cccc"/>
+      <stop offset="100%" stop-color="#004455"/>
+    </radialGradient>
+    <filter id="laser-lens-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="1" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="laser-brl-sh" x="-3%" y="-10%" width="110%" height="130%">
+      <feDropShadow dx="0" dy="0.5" stdDeviation="0.4" flood-color="#000" flood-opacity="0.4"/>
+    </filter>
+  </defs>
+  <!-- Main barrel body - tapered -->
+  <polygon points="0,2.5 0,7.5 24,6.2 24,3.8" fill="url(#laser-brl-body)" filter="url(#laser-brl-sh)"/>
+  <!-- Top highlight strip -->
+  <polygon points="0,2.5 24,3.8 24,4.5 0,3.5" fill="url(#laser-brl-highlight)"/>
+  <!-- Rail detail lines -->
+  <line x1="1" y1="3.2" x2="22" y2="4" stroke="#0aa" stroke-width="0.3" opacity="0.6"/>
+  <line x1="1" y1="6.8" x2="22" y2="6" stroke="#0aa" stroke-width="0.3" opacity="0.6"/>
+  <!-- Panel lines along barrel -->
+  <line x1="6" y1="2.8" x2="6" y2="7.2" stroke="#252a30" stroke-width="0.3" opacity="0.5"/>
+  <line x1="12" y1="3.2" x2="12" y2="6.8" stroke="#252a30" stroke-width="0.3" opacity="0.5"/>
+  <line x1="18" y1="3.5" x2="18" y2="6.5" stroke="#252a30" stroke-width="0.3" opacity="0.5"/>
+  <!-- Barrel base mounting ring -->
+  <rect x="0" y="2" width="2" height="6" rx="0.5" fill="#3a3f48" stroke="#252a30" stroke-width="0.3"/>
+  <!-- Muzzle tip section -->
+  <rect x="22" y="3.5" width="2.5" height="3" rx="0.3" fill="#3a4550" stroke="#0aa" stroke-width="0.2" opacity="0.8"/>
+  <!-- Glowing lens at tip -->
+  <circle cx="26" cy="5" r="1.8" fill="url(#laser-lens)" filter="url(#laser-lens-glow)"/>
+  <circle cx="26" cy="5" r="0.6" fill="#fff" opacity="0.9"/>
+</svg>

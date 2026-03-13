@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 18">
+  <defs>
+    <!-- Hull gradient -->
+    <linearGradient id="tank-hull" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#a55"/>
+      <stop offset="40%" stop-color="#944"/>
+      <stop offset="100%" stop-color="#733"/>
+    </linearGradient>
+    <!-- Hull top highlight -->
+    <linearGradient id="tank-hull-top" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b66"/>
+      <stop offset="100%" stop-color="#855"/>
+    </linearGradient>
+    <!-- Tread gradient -->
+    <linearGradient id="tank-tread" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#555"/>
+      <stop offset="30%" stop-color="#444"/>
+      <stop offset="70%" stop-color="#3a3a3a"/>
+      <stop offset="100%" stop-color="#333"/>
+    </linearGradient>
+    <!-- Tread plate gradient -->
+    <linearGradient id="tank-tread-plate" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#4a4a4a"/>
+      <stop offset="50%" stop-color="#5a5a5a"/>
+      <stop offset="100%" stop-color="#404040"/>
+    </linearGradient>
+    <!-- Exhaust pipe gradient -->
+    <linearGradient id="tank-exhaust" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#777"/>
+      <stop offset="100%" stop-color="#444"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Top tread (further from viewer in isometric) -->
+  <g>
+    <!-- Tread body -->
+    <rect x="2" y="1" width="26" height="3.5" rx="1.5" fill="url(#tank-tread)" stroke="#2a2a2a" stroke-width="0.4"/>
+    <!-- Track plate details -->
+    <line x1="4" y1="1.2" x2="4" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="6.5" y1="1.2" x2="6.5" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="9" y1="1.2" x2="9" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="11.5" y1="1.2" x2="11.5" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="14" y1="1.2" x2="14" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="16.5" y1="1.2" x2="16.5" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="19" y1="1.2" x2="19" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="21.5" y1="1.2" x2="21.5" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="24" y1="1.2" x2="24" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="26.5" y1="1.2" x2="26.5" y2="4.3" stroke="#4a4a4a" stroke-width="0.4"/>
+    <!-- Drive wheels at ends -->
+    <circle cx="3.5" cy="2.75" r="1.2" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="0.3"/>
+    <circle cx="26.5" cy="2.75" r="1.2" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="0.3"/>
+  </g>
+
+  <!-- Bottom tread (closer to viewer) -->
+  <g>
+    <rect x="2" y="13.5" width="26" height="3.5" rx="1.5" fill="url(#tank-tread)" stroke="#2a2a2a" stroke-width="0.4"/>
+    <!-- Track plate details -->
+    <line x1="4" y1="13.7" x2="4" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="6.5" y1="13.7" x2="6.5" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="9" y1="13.7" x2="9" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="11.5" y1="13.7" x2="11.5" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="14" y1="13.7" x2="14" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="16.5" y1="13.7" x2="16.5" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="19" y1="13.7" x2="19" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="21.5" y1="13.7" x2="21.5" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="24" y1="13.7" x2="24" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <line x1="26.5" y1="13.7" x2="26.5" y2="16.8" stroke="#4a4a4a" stroke-width="0.4"/>
+    <!-- Drive wheels -->
+    <circle cx="3.5" cy="15.25" r="1.2" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="0.3"/>
+    <circle cx="26.5" cy="15.25" r="1.2" fill="#3a3a3a" stroke="#2a2a2a" stroke-width="0.3"/>
+  </g>
+
+  <!-- Hull body -->
+  <rect x="4" y="4" width="22" height="10" rx="0.8" fill="url(#tank-hull)" stroke="#622" stroke-width="0.5"/>
+
+  <!-- Central armor ridge -->
+  <rect x="6" y="7.5" width="18" height="3" rx="0.4" fill="url(#tank-hull-top)" stroke="#733" stroke-width="0.3"/>
+  <line x1="7" y1="9" x2="23" y2="9" stroke="#a66" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Side armor plates - top -->
+  <rect x="5" y="4.5" width="20" height="2.5" rx="0.3" fill="none" stroke="#955" stroke-width="0.3" opacity="0.5"/>
+  <!-- Side armor plates - bottom -->
+  <rect x="5" y="11" width="20" height="2.5" rx="0.3" fill="none" stroke="#955" stroke-width="0.3" opacity="0.5"/>
+
+  <!-- Panel lines -->
+  <line x1="10" y1="4.5" x2="10" y2="13.5" stroke="#622" stroke-width="0.3" opacity="0.4"/>
+  <line x1="20" y1="4.5" x2="20" y2="13.5" stroke="#622" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Rivet details - top edge -->
+  <circle cx="6" cy="4.8" r="0.35" fill="#866"/>
+  <circle cx="9" cy="4.8" r="0.35" fill="#866"/>
+  <circle cx="12" cy="4.8" r="0.35" fill="#866"/>
+  <circle cx="15" cy="4.8" r="0.35" fill="#866"/>
+  <circle cx="18" cy="4.8" r="0.35" fill="#866"/>
+  <circle cx="21" cy="4.8" r="0.35" fill="#866"/>
+  <circle cx="24" cy="4.8" r="0.35" fill="#866"/>
+
+  <!-- Rivet details - bottom edge -->
+  <circle cx="6" cy="13.2" r="0.35" fill="#866"/>
+  <circle cx="9" cy="13.2" r="0.35" fill="#866"/>
+  <circle cx="12" cy="13.2" r="0.35" fill="#866"/>
+  <circle cx="15" cy="13.2" r="0.35" fill="#866"/>
+  <circle cx="18" cy="13.2" r="0.35" fill="#866"/>
+  <circle cx="21" cy="13.2" r="0.35" fill="#866"/>
+  <circle cx="24" cy="13.2" r="0.35" fill="#866"/>
+
+  <!-- Exhaust pipes at rear (left side) -->
+  <rect x="2.5" y="6" width="2" height="1" rx="0.4" fill="url(#tank-exhaust)" stroke="#333" stroke-width="0.2"/>
+  <circle cx="2.7" cy="6.5" r="0.35" fill="#2a2a2a"/>
+  <rect x="2.5" y="7.5" width="2" height="1" rx="0.4" fill="url(#tank-exhaust)" stroke="#333" stroke-width="0.2"/>
+  <circle cx="2.7" cy="8" r="0.35" fill="#2a2a2a"/>
+
+  <!-- Front armor plate (right side = facing direction) -->
+  <rect x="25" y="5" width="1.5" height="8" rx="0.3" fill="#844" stroke="#622" stroke-width="0.3"/>
+  <line x1="25.8" y1="5.5" x2="25.8" y2="12.5" stroke="#955" stroke-width="0.3" opacity="0.3"/>
+
+  <!-- Turret mount ring (center) -->
+  <circle cx="15" cy="9" r="2.5" fill="none" stroke="#622" stroke-width="0.5"/>
+  <circle cx="15" cy="9" r="2" fill="#844" stroke="#733" stroke-width="0.3"/>
+</svg>

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 10">
+  <defs>
+    <!-- Body gradient -->
+    <linearGradient id="swarm-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#6c6"/>
+      <stop offset="50%" stop-color="#5b5"/>
+      <stop offset="100%" stop-color="#4a4"/>
+    </linearGradient>
+    <!-- Abdomen gradient -->
+    <radialGradient id="swarm-abdomen" cx="0.4" cy="0.35" r="0.6">
+      <stop offset="0%" stop-color="#7d7"/>
+      <stop offset="100%" stop-color="#4a4"/>
+    </radialGradient>
+    <!-- Leg gradient -->
+    <linearGradient id="swarm-leg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5a5"/>
+      <stop offset="100%" stop-color="#383"/>
+    </linearGradient>
+    <!-- Eye glow -->
+    <radialGradient id="swarm-eye-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ff4444" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#ff0000" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ff0000" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Eye glow filter -->
+    <filter id="swarm-glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="0.4"/>
+    </filter>
+  </defs>
+
+  <!-- Legs - 3 pairs spread around body -->
+  <!-- Front right legs -->
+  <line x1="8" y1="3.5" x2="10.5" y2="1.5" stroke="url(#swarm-leg)" stroke-width="0.5" stroke-linecap="round"/>
+  <line x1="10.5" y1="1.5" x2="11.5" y2="1" stroke="#383" stroke-width="0.4" stroke-linecap="round"/>
+
+  <!-- Front left legs -->
+  <line x1="8" y1="6.5" x2="10.5" y2="8.5" stroke="url(#swarm-leg)" stroke-width="0.5" stroke-linecap="round"/>
+  <line x1="10.5" y1="8.5" x2="11.5" y2="9" stroke="#383" stroke-width="0.4" stroke-linecap="round"/>
+
+  <!-- Middle right -->
+  <line x1="6" y1="3" x2="7.5" y2="1" stroke="url(#swarm-leg)" stroke-width="0.5" stroke-linecap="round"/>
+  <line x1="7.5" y1="1" x2="8.5" y2="0.5" stroke="#383" stroke-width="0.4" stroke-linecap="round"/>
+
+  <!-- Middle left -->
+  <line x1="6" y1="7" x2="7.5" y2="9" stroke="url(#swarm-leg)" stroke-width="0.5" stroke-linecap="round"/>
+  <line x1="7.5" y1="9" x2="8.5" y2="9.5" stroke="#383" stroke-width="0.4" stroke-linecap="round"/>
+
+  <!-- Rear right -->
+  <line x1="3.5" y1="3.5" x2="2" y2="1.5" stroke="url(#swarm-leg)" stroke-width="0.5" stroke-linecap="round"/>
+  <line x1="2" y1="1.5" x2="1" y2="1.2" stroke="#383" stroke-width="0.4" stroke-linecap="round"/>
+
+  <!-- Rear left -->
+  <line x1="3.5" y1="6.5" x2="2" y2="8.5" stroke="url(#swarm-leg)" stroke-width="0.5" stroke-linecap="round"/>
+  <line x1="2" y1="8.5" x2="1" y2="8.8" stroke="#383" stroke-width="0.4" stroke-linecap="round"/>
+
+  <!-- Abdomen (rear oval) -->
+  <ellipse cx="4" cy="5" rx="2.8" ry="2.2" fill="url(#swarm-abdomen)" stroke="#393" stroke-width="0.4"/>
+  <!-- Abdomen segments -->
+  <path d="M 3 3.2 Q 4 3 5 3.2" fill="none" stroke="#494" stroke-width="0.3" opacity="0.5"/>
+  <path d="M 2.5 4 Q 4 3.5 5.5 4" fill="none" stroke="#494" stroke-width="0.3" opacity="0.5"/>
+  <path d="M 2.5 6 Q 4 6.5 5.5 6" fill="none" stroke="#494" stroke-width="0.3" opacity="0.5"/>
+  <path d="M 3 6.8 Q 4 7 5 6.8" fill="none" stroke="#494" stroke-width="0.3" opacity="0.5"/>
+
+  <!-- Head/thorax (front oval) -->
+  <ellipse cx="7.5" cy="5" rx="2.2" ry="1.8" fill="url(#swarm-body)" stroke="#393" stroke-width="0.4"/>
+  <!-- Head plate detail -->
+  <ellipse cx="8" cy="5" rx="1.2" ry="1" fill="none" stroke="#7d7" stroke-width="0.25" opacity="0.4"/>
+
+  <!-- Eyes - cluster of 3 red glowing -->
+  <!-- Glow layers -->
+  <circle cx="9" cy="4.2" r="0.7" fill="url(#swarm-eye-glow)" filter="url(#swarm-glow)"/>
+  <circle cx="9" cy="5.8" r="0.7" fill="url(#swarm-eye-glow)" filter="url(#swarm-glow)"/>
+  <circle cx="9.5" cy="5" r="0.7" fill="url(#swarm-eye-glow)" filter="url(#swarm-glow)"/>
+  <!-- Eye dots -->
+  <circle cx="9" cy="4.2" r="0.35" fill="#f33"/>
+  <circle cx="9" cy="5.8" r="0.35" fill="#f33"/>
+  <circle cx="9.5" cy="5" r="0.35" fill="#f44"/>
+  <!-- Eye highlights -->
+  <circle cx="8.9" cy="4" r="0.12" fill="#faa" opacity="0.7"/>
+  <circle cx="8.9" cy="5.6" r="0.12" fill="#faa" opacity="0.7"/>
+  <circle cx="9.4" cy="4.8" r="0.12" fill="#faa" opacity="0.7"/>
+</svg>

@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 38">
+  <defs>
+    <!-- Torso armor gradient -->
+    <linearGradient id="mech-body" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#858"/>
+      <stop offset="40%" stop-color="#747"/>
+      <stop offset="100%" stop-color="#636"/>
+    </linearGradient>
+    <!-- Torso highlight -->
+    <linearGradient id="mech-body-hi" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#969"/>
+      <stop offset="100%" stop-color="#747"/>
+    </linearGradient>
+    <!-- Leg gradient -->
+    <linearGradient id="mech-leg" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#666"/>
+      <stop offset="50%" stop-color="#888"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+    <!-- Piston gradient -->
+    <linearGradient id="mech-piston" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#aaa"/>
+      <stop offset="50%" stop-color="#ccc"/>
+      <stop offset="100%" stop-color="#999"/>
+    </linearGradient>
+    <!-- Head gradient -->
+    <linearGradient id="mech-head" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#858"/>
+      <stop offset="100%" stop-color="#636"/>
+    </linearGradient>
+    <!-- Reactor core glow -->
+    <radialGradient id="mech-reactor" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+      <stop offset="25%" stop-color="#ff88ff" stop-opacity="0.9"/>
+      <stop offset="55%" stop-color="#ff44ff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ff44ff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Visor glow -->
+    <radialGradient id="mech-visor-glow" cx="0.5" cy="0.5" r="0.6">
+      <stop offset="0%" stop-color="#ff88ff" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#ff44ff" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#ff44ff" stop-opacity="0"/>
+    </radialGradient>
+    <!-- Gun barrel gradient -->
+    <linearGradient id="mech-gun" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#777"/>
+      <stop offset="50%" stop-color="#999"/>
+      <stop offset="100%" stop-color="#555"/>
+    </linearGradient>
+    <!-- Foot gradient -->
+    <linearGradient id="mech-foot" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#666"/>
+      <stop offset="100%" stop-color="#444"/>
+    </linearGradient>
+    <!-- Reactor glow filter -->
+    <filter id="mech-core-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.5"/>
+    </filter>
+    <!-- Visor glow filter -->
+    <filter id="mech-visor-filter" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1"/>
+    </filter>
+  </defs>
+
+  <!-- Left leg (rear) -->
+  <g>
+    <!-- Upper leg -->
+    <rect x="7" y="21" width="3.5" height="6" rx="0.5" fill="url(#mech-leg)" stroke="#444" stroke-width="0.4"/>
+    <!-- Knee joint -->
+    <circle cx="8.75" cy="27" r="1.8" fill="#777" stroke="#555" stroke-width="0.4"/>
+    <circle cx="8.75" cy="27" r="0.7" fill="#999"/>
+    <!-- Lower leg -->
+    <rect x="7.5" y="28" width="3" height="5" rx="0.4" fill="url(#mech-leg)" stroke="#444" stroke-width="0.4"/>
+    <!-- Hydraulic piston -->
+    <rect x="6" y="23" width="1" height="6" rx="0.3" fill="url(#mech-piston)" stroke="#888" stroke-width="0.2"/>
+    <rect x="6.2" y="26" width="0.6" height="3.5" rx="0.2" fill="#ccc"/>
+    <!-- Foot -->
+    <rect x="6" y="32.5" width="5.5" height="2.5" rx="0.6" fill="url(#mech-foot)" stroke="#333" stroke-width="0.4"/>
+    <line x1="7" y1="33.5" x2="10.5" y2="33.5" stroke="#555" stroke-width="0.3"/>
+  </g>
+
+  <!-- Right leg (forward) -->
+  <g>
+    <!-- Upper leg -->
+    <rect x="18" y="20" width="3.5" height="6" rx="0.5" fill="url(#mech-leg)" stroke="#444" stroke-width="0.4"/>
+    <!-- Knee joint -->
+    <circle cx="19.75" cy="26" r="1.8" fill="#777" stroke="#555" stroke-width="0.4"/>
+    <circle cx="19.75" cy="26" r="0.7" fill="#999"/>
+    <!-- Lower leg -->
+    <rect x="18.5" y="27" width="3" height="5.5" rx="0.4" fill="url(#mech-leg)" stroke="#444" stroke-width="0.4"/>
+    <!-- Hydraulic piston -->
+    <rect x="22" y="22" width="1" height="6" rx="0.3" fill="url(#mech-piston)" stroke="#888" stroke-width="0.2"/>
+    <rect x="22.2" y="25" width="0.6" height="3.5" rx="0.2" fill="#ccc"/>
+    <!-- Foot -->
+    <rect x="17" y="32" width="5.5" height="2.5" rx="0.6" fill="url(#mech-foot)" stroke="#333" stroke-width="0.4"/>
+    <line x1="18" y1="33" x2="21.5" y2="33" stroke="#555" stroke-width="0.3"/>
+  </g>
+
+  <!-- Massive torso -->
+  <rect x="6" y="8" width="18" height="14" rx="1.5" fill="url(#mech-body)" stroke="#525" stroke-width="0.6"/>
+  <!-- Upper torso plate -->
+  <rect x="7" y="9" width="16" height="5" rx="0.8" fill="url(#mech-body-hi)" opacity="0.5"/>
+  <!-- Armor panel lines -->
+  <line x1="15" y1="9" x2="15" y2="21" stroke="#525" stroke-width="0.4" opacity="0.5"/>
+  <line x1="7" y1="13" x2="23" y2="13" stroke="#525" stroke-width="0.4" opacity="0.5"/>
+  <line x1="7" y1="17" x2="23" y2="17" stroke="#525" stroke-width="0.4" opacity="0.5"/>
+  <!-- Side panel accents -->
+  <rect x="7" y="9.5" width="3" height="3.5" rx="0.3" fill="none" stroke="#969" stroke-width="0.3" opacity="0.4"/>
+  <rect x="20" y="9.5" width="3" height="3.5" rx="0.3" fill="none" stroke="#969" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Reactor core glow (behind) -->
+  <circle cx="15" cy="15" r="3.5" fill="url(#mech-reactor)" filter="url(#mech-core-glow)"/>
+  <!-- Reactor core -->
+  <circle cx="15" cy="15" r="2" fill="#f4f" opacity="0.8" stroke="#c2c" stroke-width="0.4"/>
+  <circle cx="15" cy="15" r="1" fill="#faf"/>
+  <circle cx="15" cy="15" r="0.4" fill="#fff"/>
+
+  <!-- Left arm - missile rack -->
+  <g>
+    <!-- Arm -->
+    <rect x="2" y="9" width="4" height="3" rx="0.5" fill="url(#mech-body)" stroke="#525" stroke-width="0.4"/>
+    <line x1="6" y1="10.5" x2="4" y2="10.5" stroke="#777" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- Missile rack housing -->
+    <rect x="0.5" y="8" width="4" height="5" rx="0.4" fill="#636" stroke="#525" stroke-width="0.4"/>
+    <!-- Missile tubes 2x2 -->
+    <circle cx="1.5" cy="9.2" r="0.7" fill="#333" stroke="#444" stroke-width="0.2"/>
+    <circle cx="3.5" cy="9.2" r="0.7" fill="#333" stroke="#444" stroke-width="0.2"/>
+    <circle cx="1.5" cy="11.2" r="0.7" fill="#333" stroke="#444" stroke-width="0.2"/>
+    <circle cx="3.5" cy="11.2" r="0.7" fill="#333" stroke="#444" stroke-width="0.2"/>
+    <!-- Missile tips visible -->
+    <circle cx="1.5" cy="9.2" r="0.3" fill="#855"/>
+    <circle cx="3.5" cy="9.2" r="0.3" fill="#855"/>
+    <circle cx="1.5" cy="11.2" r="0.3" fill="#855"/>
+    <circle cx="3.5" cy="11.2" r="0.3" fill="#855"/>
+  </g>
+
+  <!-- Right arm - multi-barrel gun -->
+  <g>
+    <!-- Arm connector -->
+    <rect x="24" y="9" width="4" height="3" rx="0.5" fill="url(#mech-body)" stroke="#525" stroke-width="0.4"/>
+    <line x1="24" y1="10.5" x2="26" y2="10.5" stroke="#777" stroke-width="1.2" stroke-linecap="round"/>
+    <!-- Gun housing -->
+    <rect x="26" y="8.5" width="3" height="5" rx="0.3" fill="#636" stroke="#525" stroke-width="0.4"/>
+    <!-- Barrels extending right -->
+    <rect x="29" y="9" width="3" height="0.8" rx="0.2" fill="url(#mech-gun)" stroke="#444" stroke-width="0.2"/>
+    <rect x="29" y="10.3" width="3" height="0.8" rx="0.2" fill="url(#mech-gun)" stroke="#444" stroke-width="0.2"/>
+    <rect x="29" y="11.6" width="3" height="0.8" rx="0.2" fill="url(#mech-gun)" stroke="#444" stroke-width="0.2"/>
+    <!-- Muzzle ends -->
+    <circle cx="31.8" cy="9.4" r="0.25" fill="#333"/>
+    <circle cx="31.8" cy="10.7" r="0.25" fill="#333"/>
+    <circle cx="31.8" cy="12" r="0.25" fill="#333"/>
+  </g>
+
+  <!-- Neck -->
+  <rect x="12.5" y="5.5" width="5" height="3" rx="0.5" fill="#666" stroke="#444" stroke-width="0.3"/>
+
+  <!-- Angular head -->
+  <polygon points="10,3 20,3 21,5.5 22,7 8,7 9,5.5" fill="url(#mech-head)" stroke="#525" stroke-width="0.5"/>
+  <!-- Head top ridge -->
+  <line x1="11" y1="3.5" x2="19" y2="3.5" stroke="#969" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Visor glow (behind) -->
+  <rect x="10.5" y="4.5" width="9" height="1.8" rx="0.4" fill="url(#mech-visor-glow)" filter="url(#mech-visor-filter)"/>
+  <!-- Visor -->
+  <rect x="10.5" y="4.5" width="9" height="1.8" rx="0.4" fill="#f4f" opacity="0.85"/>
+  <!-- Visor segments -->
+  <line x1="13.5" y1="4.6" x2="13.5" y2="6.2" stroke="#c2c" stroke-width="0.3" opacity="0.5"/>
+  <line x1="16.5" y1="4.6" x2="16.5" y2="6.2" stroke="#c2c" stroke-width="0.3" opacity="0.5"/>
+  <!-- Visor highlight -->
+  <rect x="11" y="4.7" width="3" height="0.5" rx="0.2" fill="#faf" opacity="0.5"/>
+
+  <!-- Antennae -->
+  <line x1="12" y1="3" x2="11" y2="0.8" stroke="#888" stroke-width="0.5" stroke-linecap="round"/>
+  <circle cx="11" cy="0.8" r="0.4" fill="#f4f"/>
+  <line x1="18" y1="3" x2="19" y2="0.8" stroke="#888" stroke-width="0.5" stroke-linecap="round"/>
+  <circle cx="19" cy="0.8" r="0.4" fill="#f4f"/>
+</svg>
