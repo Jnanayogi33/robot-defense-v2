@@ -1,6 +1,7 @@
 import state from './state.js';
 import { MINE_DEF } from './config.js';
 import { spawnParticles, spawnMineExplosion } from './particles.js';
+import { playExplosionSound } from './audio.js';
 
 export function updateMines() {
   state.mines.forEach(m => {
@@ -25,6 +26,7 @@ export function updateMines() {
         }
       });
       spawnMineExplosion(m.x, m.y);
+      playExplosionSound();
     }
   });
   state.mines = state.mines.filter(m => !m.detonated || m.flashTimer > 0);

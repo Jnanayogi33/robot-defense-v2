@@ -1,9 +1,12 @@
 import state from './state.js';
 import { TILE, ENEMY_TYPES } from './config.js';
 import { PATH } from './path.js';
+import { playWaveStartSound, setMusicIntensity } from './audio.js';
 
 export function startWave() {
   if (state.waveActive) return;
+  playWaveStartSound();
+  setMusicIntensity(true);
   state.waveNum++;
   state.waveActive = true;
   state.spawnQueue = [];

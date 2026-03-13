@@ -1,5 +1,16 @@
 import state from './state.js';
 import { spawnParticles } from './particles.js';
+import { playLaserSound, playPlasmaSound, playEmpSound, playRailgunSound, playTeslaSound, playCryoSound, playMissileSound } from './audio.js';
+
+const towerSounds = {
+  laser: playLaserSound,
+  plasma: playPlasmaSound,
+  emp: playEmpSound,
+  rail: playRailgunSound,
+  tesla: playTeslaSound,
+  cryo: playCryoSound,
+  missile: playMissileSound,
+};
 
 export function updateTowers() {
   state.towers.forEach(t => {
@@ -14,6 +25,7 @@ export function updateTowers() {
     t.angle = Math.atan2(best.y - t.y, best.x - t.x);
     t.cooldown = t.def.rate;
     t.fireFlash = 5;
+    if (towerSounds[t.def.id]) towerSounds[t.def.id]();
 
     if (t.def.chain) {
       let targets = [best];

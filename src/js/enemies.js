@@ -2,6 +2,7 @@ import state from './state.js';
 import { TILE } from './config.js';
 import { PATH } from './path.js';
 import { spawnDeathExplosion } from './particles.js';
+import { playEnemyDeathSound } from './audio.js';
 
 export function updateEnemies() {
   state.enemies.forEach(e => {
@@ -28,6 +29,7 @@ export function updateEnemies() {
     if (e.hp <= 0) {
       state.score += e.reward; state.money += e.reward;
       spawnDeathExplosion(e.x, e.y, e.type.color, e.type.size);
+      playEnemyDeathSound();
       return false;
     }
     return true;

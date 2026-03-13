@@ -4,6 +4,17 @@ import { pathSet } from './path.js';
 import { showMsg } from './update.js';
 import { startWave } from './wave.js';
 import { resetState } from './state.js';
+import { initAudio, toggleMute, isMuted, startMusic, stopMusic } from './audio.js';
+
+let audioInitialized = false;
+
+function ensureAudioStarted() {
+  if (!audioInitialized) {
+    initAudio();
+    startMusic();
+    audioInitialized = true;
+  }
+}
 
 function getGridPos(canvas, clientX, clientY) {
   let rect = canvas.getBoundingClientRect();
@@ -15,6 +26,7 @@ function getGridPos(canvas, clientX, clientY) {
 }
 
 function handleCanvasClick(canvas, clientX, clientY) {
+  ensureAudioStarted();
   let { col, row } = getGridPos(canvas, clientX, clientY);
   if (col < 0 || col >= COLS || row < 0 || row >= ROWS) return;
   if (state.selling) {
@@ -68,7 +80,7 @@ export function initInput(canvas) {
     let btn = document.createElement('button');
     btn.className = 'tower-btn';
     btn.innerHTML = `<div class="name">${t.name}</div><div class="cost">$${t.cost}</div><div class="desc">${t.desc}</div>`;
-    btn.onclick = () => { state.selling = false; state.placingMine = false; state.selectedTower = t; updateShopUI(); };
+    btn.onclick = () => { ensureAudioStarted(); state.selling = false; state.placingMine = false; state.selectedTower = t; updateShopUI(); };
     btn.dataset.id = t.id;
     shopEl.appendChild(btn);
   });
@@ -78,7 +90,7 @@ export function initInput(canvas) {
   mineBtn.className = 'tower-btn';
   mineBtn.innerHTML = `<div class="name" style="color:#f42">${MINE_DEF.name}</div><div class="cost">$${MINE_DEF.cost}</div><div class="desc">${MINE_DEF.desc}</div>`;
   mineBtn.dataset.id = 'mine';
-  mineBtn.onclick = () => { state.selling = false; state.selectedTower = null; state.placingMine = true; updateShopUI(); };
+  mineBtn.onclick = () => { ensureAudioStarted(); state.selling = false; state.selectedTower = null; state.placingMine = true; updateShopUI(); };
   shopEl.appendChild(mineBtn);
 
   // Mouse click
@@ -94,8 +106,14 @@ export function initInput(canvas) {
   }, { passive: false });
 
   // Wire buttons
-  document.querySelector('#controls button:nth-child(1)').onclick = () => startWave();
-  document.querySelector('#controls button:nth-child(2)').onclick = () => sellMode();
+  const muteBtn = document.getElementById('mute-btn');
+  document.querySelector('#controls button:nth-child(1)').onclick = () => { ensureAudioStarted(); startWave(); };
+  document.querySelector('#controls button:nth-child(2)').onclick = () => { ensureAudioStarted(); sellMode(); };
+  muteBtn.onclick = () => {
+    ensureAudioStarted();
+    let m = toggleMute();
+    muteBtn.textContent = m ? 'Sound: OFF' : 'Sound: ON';
+  };
   document.querySelector('#overlay-box button').onclick = () => restartGame();
 }
 
@@ -115,5 +133,7 @@ function sellMode() {
 
 function restartGame() {
   resetState();
+  stopMusic();
+  audioInitialized = false;
   document.getElementById('overlay').classList.remove('show');
 }

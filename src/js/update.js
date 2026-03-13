@@ -2,6 +2,7 @@ import state from './state.js';
 import { updateEnemies } from './enemies.js';
 import { updateTowers } from './towers.js';
 import { updateMines, updateBullets } from './projectiles.js';
+import { setMusicIntensity } from './audio.js';
 
 export function showMsg(m) { state.msg = m; state.msgTimer = 120; }
 
@@ -26,6 +27,7 @@ export function update() {
 
   if (state.waveActive && state.spawnQueue.length === 0 && state.enemies.length === 0) {
     state.waveActive = false;
+    setMusicIntensity(false);
     state.money += 25 + state.waveNum * 5;
     showMsg(`Wave ${state.waveNum} cleared! Bonus: $${25 + state.waveNum * 5}`);
   }
