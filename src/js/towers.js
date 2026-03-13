@@ -15,21 +15,28 @@ const towerSounds = {
 export function updateTowers() {
   state.towers.forEach(t => {
     if (t.fireFlash > 0) t.fireFlash--;
-    if (t.cooldown > 0) { t.cooldown--; return; }
+    if (t.cooldown > 0) t.cooldown--;
+
+    // Find best target in range (always, even during cooldown for tracking)
     let best = null;
     state.enemies.forEach(e => {
       let d = Math.hypot(e.x - t.x, e.y - t.y);
       if (d <= t.def.range && e.pathIdx > (best ? best.pathIdx : -1)) best = e;
     });
     if (!best) return;
-    // Smooth rotation easing
+
+    // Smooth rotation toward target (always tracks, even during cooldown)
     let targetAngle = Math.atan2(best.y - t.y, best.x - t.x);
     let diff = targetAngle - t.angle;
     while (diff > Math.PI) diff -= Math.PI * 2;
     while (diff < -Math.PI) diff += Math.PI * 2;
-    t.angle += diff * 0.15;
-    // Snap if close enough for firing accuracy
-    if (Math.abs(diff) < 0.3) t.angle = targetAngle;
+    t.angle += diff * 0.25;
+    if (Math.abs(diff) < 0.1) t.angle = targetAngle;
+
+    // Only fire when cooldown is ready AND barrel is aimed
+    if (t.cooldown > 0) return;
+    if (Math.abs(diff) > 0.3) return;
+    t.angle = targetAngle;
     t.cooldown = t.def.rate;
     t.fireFlash = 5;
     if (towerSounds[t.def.id]) towerSounds[t.def.id]();
