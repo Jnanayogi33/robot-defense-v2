@@ -1,9 +1,65 @@
 import state from './state.js';
-import { TILE, TOWER_DEFS, MINE_DEF } from './config.js';
+import { COLS, ROWS, TILE, TOWER_DEFS, MINE_DEF } from './config.js';
 import { pathSet } from './path.js';
 import { showMsg } from './update.js';
 import { startWave } from './wave.js';
 import { resetState } from './state.js';
+
+function getGridPos(canvas, clientX, clientY) {
+  let rect = canvas.getBoundingClientRect();
+  let scaleX = canvas.width / rect.width;
+  let scaleY = canvas.height / rect.height;
+  let col = Math.floor((clientX - rect.left) * scaleX / TILE);
+  let row = Math.floor((clientY - rect.top) * scaleY / TILE);
+  return { col, row };
+}
+
+function handleCanvasClick(canvas, clientX, clientY) {
+  let { col, row } = getGridPos(canvas, clientX, clientY);
+  if (col < 0 || col >= COLS || row < 0 || row >= ROWS) return;
+  if (state.selling) {
+    let idx = state.towers.findIndex(t => t.col === col && t.row === row);
+    if (idx >= 0) {
+      let refund = Math.floor(state.towers[idx].def.cost * 0.6);
+      state.money += refund;
+      state.towers.splice(idx, 1);
+      showMsg(`Sold for $${refund}`);
+      state.selling = false;
+    }
+    return;
+  }
+  if (state.placingMine) {
+    if (!pathSet.has(col+','+row)) { showMsg('Mines must be placed on the path!'); return; }
+    if (state.mines.find(m => m.col === col && m.row === row)) { showMsg('Mine already here!'); return; }
+    if (state.money < MINE_DEF.cost) { showMsg('Not enough credits!'); return; }
+    state.money -= MINE_DEF.cost;
+    state.mines.push({
+      col, row,
+      x: col * TILE + TILE/2,
+      y: row * TILE + TILE/2,
+      armed: false,
+      armTimer: 60,
+      detonated: false,
+      flashTimer: 0
+    });
+    showMsg('Mine placed! Arms in 1 sec.');
+    return;
+  }
+  if (!state.selectedTower) return;
+  if (pathSet.has(col+','+row)) { showMsg("Can't build on the path!"); return; }
+  if (state.towers.find(t => t.col === col && t.row === row)) { showMsg('Already occupied!'); return; }
+  if (state.money < state.selectedTower.cost) { showMsg('Not enough credits!'); return; }
+  state.money -= state.selectedTower.cost;
+  state.towers.push({
+    col, row,
+    x: col * TILE + TILE/2,
+    y: row * TILE + TILE/2,
+    def: state.selectedTower,
+    cooldown: 0,
+    angle: 0,
+    fireFlash: 0
+  });
+}
 
 export function initInput(canvas) {
   const shopEl = document.getElementById('shop');
@@ -25,54 +81,17 @@ export function initInput(canvas) {
   mineBtn.onclick = () => { state.selling = false; state.selectedTower = null; state.placingMine = true; updateShopUI(); };
   shopEl.appendChild(mineBtn);
 
+  // Mouse click
   canvas.addEventListener('click', e => {
-    let rect = canvas.getBoundingClientRect();
-    let col = Math.floor((e.clientX - rect.left) / TILE);
-    let row = Math.floor((e.clientY - rect.top) / TILE);
-    if (col < 0 || col >= 20 || row < 0 || row >= 14) return;
-    if (state.selling) {
-      let idx = state.towers.findIndex(t => t.col === col && t.row === row);
-      if (idx >= 0) {
-        let refund = Math.floor(state.towers[idx].def.cost * 0.6);
-        state.money += refund;
-        state.towers.splice(idx, 1);
-        showMsg(`Sold for $${refund}`);
-        state.selling = false;
-      }
-      return;
-    }
-    if (state.placingMine) {
-      if (!pathSet.has(col+','+row)) { showMsg('Mines must be placed on the path!'); return; }
-      if (state.mines.find(m => m.col === col && m.row === row)) { showMsg('Mine already here!'); return; }
-      if (state.money < MINE_DEF.cost) { showMsg('Not enough credits!'); return; }
-      state.money -= MINE_DEF.cost;
-      state.mines.push({
-        col, row,
-        x: col * TILE + TILE/2,
-        y: row * TILE + TILE/2,
-        armed: false,
-        armTimer: 60,
-        detonated: false,
-        flashTimer: 0
-      });
-      showMsg('Mine placed! Arms in 1 sec.');
-      return;
-    }
-    if (!state.selectedTower) return;
-    if (pathSet.has(col+','+row)) { showMsg("Can't build on the path!"); return; }
-    if (state.towers.find(t => t.col === col && t.row === row)) { showMsg('Already occupied!'); return; }
-    if (state.money < state.selectedTower.cost) { showMsg('Not enough credits!'); return; }
-    state.money -= state.selectedTower.cost;
-    state.towers.push({
-      col, row,
-      x: col * TILE + TILE/2,
-      y: row * TILE + TILE/2,
-      def: state.selectedTower,
-      cooldown: 0,
-      angle: 0,
-      fireFlash: 0
-    });
+    handleCanvasClick(canvas, e.clientX, e.clientY);
   });
+
+  // Touch support
+  canvas.addEventListener('touchstart', e => {
+    e.preventDefault();
+    let touch = e.touches[0];
+    handleCanvasClick(canvas, touch.clientX, touch.clientY);
+  }, { passive: false });
 
   // Wire buttons
   document.querySelector('#controls button:nth-child(1)').onclick = () => startWave();
