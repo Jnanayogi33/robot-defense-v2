@@ -127,7 +127,6 @@ canvas {
 <div id="controls">
   <button onclick="startWave()">Next Wave</button>
   <button onclick="sellMode()">Sell Tower</button>
-  <button onclick="openMiniGame()" style="color:#f92;border-color:#f92">Mini Game</button>
 </div>
 <canvas id="c"></canvas>
 <div id="msg"></div>
@@ -140,19 +139,6 @@ canvas {
   </div>
 </div>
 
-<div id="mg-overlay" style="display:none;position:fixed;inset:0;background:#000d;z-index:20;justify-content:center;align-items:center;">
-  <div style="text-align:center;">
-    <div style="display:flex;gap:20px;justify-content:center;margin-bottom:6px;font-size:13px;">
-      <span>Kills: <span style="color:#0ff;font-weight:bold" id="mg-kills">0</span></span>
-      <span>Time: <span style="color:#f92;font-weight:bold" id="mg-time">30</span></span>
-      <span>Bonus: <span style="color:#ff0;font-weight:bold" id="mg-bonus">0</span></span>
-    </div>
-    <canvas id="mg-canvas" style="border:2px solid #f92;border-radius:6px;cursor:crosshair;"></canvas>
-    <div style="margin-top:8px;">
-      <button onclick="closeMiniGame()" style="background:#1a1a3a;border:1px solid #f92;color:#f92;padding:6px 16px;font-family:inherit;font-size:13px;cursor:pointer;border-radius:4px;">Close & Collect</button>
-    </div>
-  </div>
-</div>
 
 <script>
 const C = document.getElementById('c');
@@ -166,7 +152,6 @@ let money = 200, lives = 20, waveNum = 0, score = 0;
 let selectedTower = null, selling = false, waveActive = false;
 let towers = [], enemies = [], bullets = [], particles = [], spawnQueue = [], mines = [];
 let spawnTimer = 0, msg = '', msgTimer = 0;
-let mgActive = false;
 
 const PATH_POINTS = [
   [0,3],[4,3],[4,7],[10,7],[10,2],[15,2],[15,10],[19,10]
@@ -334,9 +319,7 @@ function restartGame() {
   money = 200; lives = 20; waveNum = 0; score = 0;
   towers = []; enemies = []; bullets = []; particles = []; spawnQueue = []; mines = [];
   waveActive = false; selectedTower = null; selling = false; placingMine = false;
-  mgActive = false;
   document.getElementById('overlay').classList.remove('show');
-  document.getElementById('mg-overlay').style.display = 'none';
 }
 
 // ============ UPDATE ============
@@ -2022,355 +2005,11 @@ function draw() {
 }
 
 function loop() {
-  if (lives > 0 && !mgActive) update();
+  if (lives > 0) update();
   draw();
   requestAnimationFrame(loop);
 }
 loop();
-
-// ============ MINI GAME: Robot Blaster ============
-let mgCanvas, mgCtx;
-let mgTime, mgKills, mgBonus, mgTargets, mgExplosions, mgMouseX, mgMouseY;
-let mgInterval = null;
-let mgCombo = 0, mgComboTimer = 0;
-
-function openMiniGame() {
-  if (waveActive) { showMsg("Can't play during a wave!"); return; }
-  mgActive = true;
-  mgKills = 0;
-  mgBonus = 0;
-  mgTime = 30 * 60; // 30 seconds at 60fps
-  mgTargets = [];
-  mgExplosions = [];
-  mgMouseX = 200;
-  mgMouseY = 200;
-  mgCombo = 0;
-  mgComboTimer = 0;
-
-  document.getElementById('mg-overlay').style.display = 'flex';
-  mgCanvas = document.getElementById('mg-canvas');
-  mgCanvas.width = 400;
-  mgCanvas.height = 400;
-  mgCtx = mgCanvas.getContext('2d');
-
-  mgCanvas.onmousemove = e => {
-    let r = mgCanvas.getBoundingClientRect();
-    mgMouseX = e.clientX - r.left;
-    mgMouseY = e.clientY - r.top;
-  };
-  mgCanvas.onclick = e => {
-    let r = mgCanvas.getBoundingClientRect();
-    let mx = e.clientX - r.left, my = e.clientY - r.top;
-    mgShoot(mx, my);
-  };
-
-  // Spawn initial targets
-  for (let i = 0; i < 5; i++) mgSpawnTarget();
-
-  if (mgInterval) clearInterval(mgInterval);
-  mgInterval = setInterval(mgUpdate, 1000/60);
-}
-
-function closeMiniGame() {
-  mgActive = false;
-  document.getElementById('mg-overlay').style.display = 'none';
-  if (mgInterval) { clearInterval(mgInterval); mgInterval = null; }
-  money += mgBonus;
-  if (mgBonus > 0) showMsg(`Mini game bonus: +$${mgBonus}!`);
-}
-
-function mgSpawnTarget() {
-  let types = [
-    { name:'Scout', color:'#f44', size:12, hp:1, points:5, speed:1.5 },
-    { name:'Soldier', color:'#fa0', size:16, hp:2, points:10, speed:1 },
-    { name:'Drone', color:'#4af', size:10, hp:1, points:8, speed:2.5 },
-    { name:'Tank', color:'#a44', size:22, hp:3, points:20, speed:0.6 },
-    { name:'Mech', color:'#f4f', size:26, hp:4, points:30, speed:0.4 },
-  ];
-  let t = types[Math.floor(Math.random() * types.length)];
-  // Spawn from edges
-  let side = Math.floor(Math.random() * 4);
-  let x, y, vx, vy;
-  if (side === 0) { x = -20; y = Math.random()*400; vx = t.speed; vy = (Math.random()-0.5)*t.speed; }
-  else if (side === 1) { x = 420; y = Math.random()*400; vx = -t.speed; vy = (Math.random()-0.5)*t.speed; }
-  else if (side === 2) { x = Math.random()*400; y = -20; vx = (Math.random()-0.5)*t.speed; vy = t.speed; }
-  else { x = Math.random()*400; y = 420; vx = (Math.random()-0.5)*t.speed; vy = -t.speed; }
-  mgTargets.push({ ...t, x, y, vx, vy, flash: 0 });
-}
-
-function mgShoot(mx, my) {
-  let hit = false;
-  for (let i = mgTargets.length - 1; i >= 0; i--) {
-    let t = mgTargets[i];
-    if (Math.hypot(t.x - mx, t.y - my) < t.size) {
-      t.hp--;
-      t.flash = 6;
-      if (t.hp <= 0) {
-        mgCombo++;
-        mgComboTimer = 90;
-        let comboMult = Math.min(mgCombo, 5);
-        let pts = t.points * comboMult;
-        mgKills++;
-        mgBonus += pts;
-        // Explosion
-        mgExplosions.push({ x: t.x, y: t.y, color: t.color, life: 20, size: t.size, combo: mgCombo, pts });
-        mgTargets.splice(i, 1);
-        mgSpawnTarget();
-        if (Math.random() < 0.3) mgSpawnTarget(); // bonus spawn
-      }
-      hit = true;
-      break;
-    }
-  }
-  if (!hit) {
-    mgCombo = 0;
-    // Miss spark
-    mgExplosions.push({ x: mx, y: my, color: '#555', life: 10, size: 5, combo: 0, pts: 0 });
-  }
-}
-
-function mgUpdate() {
-  mgTime--;
-  if (mgComboTimer > 0) mgComboTimer--;
-  if (mgComboTimer <= 0) mgCombo = 0;
-
-  if (mgTime <= 0) {
-    // Time up - auto close
-    closeMiniGame();
-    return;
-  }
-
-  // Move targets
-  mgTargets.forEach(t => {
-    t.x += t.vx;
-    t.y += t.vy;
-    if (t.flash > 0) t.flash--;
-    // Bounce off walls
-    if (t.x < -30 || t.x > 430) t.vx *= -1;
-    if (t.y < -30 || t.y > 430) t.vy *= -1;
-    // Slight random direction change
-    if (Math.random() < 0.02) { t.vx += (Math.random()-0.5)*0.5; t.vy += (Math.random()-0.5)*0.5; }
-  });
-
-  // Decay explosions
-  mgExplosions.forEach(e => e.life--);
-  mgExplosions = mgExplosions.filter(e => e.life > 0);
-
-  // Keep target count up
-  while (mgTargets.length < 4 + Math.floor((30*60 - mgTime)/(60*5))) {
-    mgSpawnTarget();
-  }
-
-  mgDraw();
-}
-
-function mgDraw() {
-  let c = mgCtx;
-  // Background - dark space with grid
-  c.fillStyle = '#060612';
-  c.fillRect(0, 0, 400, 400);
-
-  // Scanning grid
-  c.strokeStyle = '#111';
-  c.lineWidth = 0.5;
-  for (let x = 0; x < 400; x += 20) { c.beginPath(); c.moveTo(x,0); c.lineTo(x,400); c.stroke(); }
-  for (let y = 0; y < 400; y += 20) { c.beginPath(); c.moveTo(0,y); c.lineTo(400,y); c.stroke(); }
-
-  // Radar sweep
-  let sweep = (mgTime * 0.02) % (Math.PI * 2);
-  c.fillStyle = 'rgba(255,150,30,0.04)';
-  c.beginPath();
-  c.moveTo(200, 200);
-  c.arc(200, 200, 250, sweep, sweep + 0.8);
-  c.closePath();
-  c.fill();
-
-  // Draw targets
-  mgTargets.forEach(t => {
-    c.save();
-    c.translate(t.x, t.y);
-
-    if (t.name === 'Scout') {
-      // Bipedal scout
-      let wb = Math.sin(mgTime * 0.1) * 2;
-      c.strokeStyle = '#888';
-      c.lineWidth = 1.5;
-      c.beginPath(); c.moveTo(-3, 4); c.lineTo(-5, 10+wb); c.lineTo(-3, 13); c.stroke();
-      c.beginPath(); c.moveTo(3, 4); c.lineTo(5, 10-wb); c.lineTo(3, 13); c.stroke();
-      c.fillStyle = t.flash > 0 ? '#fff' : '#922';
-      c.fillRect(-6, -5, 12, 10);
-      c.fillStyle = '#a33';
-      c.fillRect(-5, -9, 10, 5);
-      c.fillStyle = '#f00';
-      c.shadowColor = '#f00'; c.shadowBlur = 4;
-      c.fillRect(-4, -8, 8, 2);
-      c.shadowBlur = 0;
-    } else if (t.name === 'Soldier') {
-      let wb = Math.sin(mgTime * 0.08) * 1.5;
-      c.fillStyle = '#885500';
-      c.save(); c.translate(-5,5); c.rotate(Math.sin(mgTime*0.08)*0.3);
-      c.fillRect(-2,0,4,10); c.restore();
-      c.save(); c.translate(5,5); c.rotate(-Math.sin(mgTime*0.08)*0.3);
-      c.fillRect(-2,0,4,10); c.restore();
-      c.fillStyle = t.flash > 0 ? '#fff' : '#996600';
-      c.fillRect(-8, -6, 16, 12);
-      c.fillStyle = '#885500';
-      c.fillRect(-6, -11, 12, 6);
-      c.fillStyle = '#fa0';
-      c.shadowColor = '#fa0'; c.shadowBlur = 3;
-      c.fillRect(-4, -9, 3, 2); c.fillRect(1, -9, 3, 2);
-      c.shadowBlur = 0;
-      c.fillStyle = '#aa7700';
-      c.beginPath(); c.arc(-9,-5,3,0,Math.PI*2); c.fill();
-      c.beginPath(); c.arc(9,-5,3,0,Math.PI*2); c.fill();
-      c.fillStyle = '#555';
-      c.fillRect(10,-3,6,2);
-    } else if (t.name === 'Drone') {
-      let hov = Math.sin(mgTime * 0.15) * 3;
-      c.translate(0, hov);
-      c.fillStyle = 'rgba(0,0,0,0.15)';
-      c.beginPath(); c.ellipse(0, 10-hov, 8, 2, 0, 0, Math.PI*2); c.fill();
-      c.strokeStyle = '#336'; c.lineWidth = 2;
-      c.beginPath(); c.moveTo(-10,-2); c.lineTo(10,-2); c.stroke();
-      c.fillStyle = t.flash > 0 ? '#fff' : '#336';
-      c.beginPath();
-      c.moveTo(-4,-5); c.lineTo(4,-5); c.lineTo(5,0); c.lineTo(4,3); c.lineTo(-4,3); c.lineTo(-5,0);
-      c.closePath(); c.fill();
-      c.strokeStyle = 'rgba(70,170,255,0.4)'; c.lineWidth = 1;
-      [[-10,-2],[10,-2]].forEach(([px,py]) => {
-        c.beginPath(); c.arc(px,py,5,0,Math.PI*2); c.stroke();
-      });
-      c.fillStyle = '#4af'; c.shadowColor = '#4af'; c.shadowBlur = 6;
-      c.beginPath(); c.arc(0,-1,2.5,0,Math.PI*2); c.fill();
-      c.shadowBlur = 0;
-    } else if (t.name === 'Tank') {
-      let rum = Math.sin(mgTime * 0.3) * 0.5;
-      c.fillStyle = '#444';
-      c.fillRect(-16, 5, 32, 8);
-      c.fillStyle = '#333';
-      for (let i = 0; i < 8; i++) c.fillRect(-14+i*4, 5.5, 2, 7);
-      c.fillStyle = t.flash > 0 ? '#fff' : '#733';
-      c.beginPath();
-      c.moveTo(-14,5); c.lineTo(-12,-4+rum); c.lineTo(12,-4+rum); c.lineTo(14,5);
-      c.closePath(); c.fill();
-      c.fillStyle = '#844';
-      c.beginPath(); c.arc(0,-5+rum,7,0,Math.PI*2); c.fill();
-      c.fillStyle = '#655';
-      c.fillRect(5,-7+rum,12,4);
-      c.fillStyle = '#f00'; c.shadowColor = '#f00'; c.shadowBlur = 3;
-      c.beginPath(); c.arc(0,-6+rum,1.5,0,Math.PI*2); c.fill();
-      c.shadowBlur = 0;
-    } else if (t.name === 'Mech') {
-      let wb = Math.abs(Math.sin(mgTime*0.06))*2;
-      let ls = Math.sin(mgTime*0.06)*0.25;
-      c.save(); c.translate(-7,5-wb); c.rotate(ls);
-      c.fillStyle = '#636'; c.fillRect(-3,0,6,10);
-      c.fillStyle = '#858'; c.beginPath(); c.arc(0,10,3,0,Math.PI*2); c.fill();
-      c.fillStyle = '#525'; c.fillRect(-3,10,6,10);
-      c.fillStyle = '#747'; c.fillRect(-5,19,8,3);
-      c.restore();
-      c.save(); c.translate(7,5-wb); c.rotate(-ls);
-      c.fillStyle = '#636'; c.fillRect(-3,0,6,10);
-      c.fillStyle = '#858'; c.beginPath(); c.arc(0,10,3,0,Math.PI*2); c.fill();
-      c.fillStyle = '#525'; c.fillRect(-3,10,6,10);
-      c.fillStyle = '#747'; c.fillRect(-3,19,8,3);
-      c.restore();
-      c.fillStyle = t.flash > 0 ? '#fff' : '#747';
-      c.fillRect(-12,-8-wb,24,14);
-      c.strokeStyle = '#969'; c.lineWidth = 1.5; c.strokeRect(-12,-8-wb,24,14);
-      c.fillStyle = '#f4f'; c.shadowColor = '#f4f'; c.shadowBlur = 5;
-      c.beginPath(); c.arc(0,-2-wb,4,0,Math.PI*2); c.fill();
-      c.shadowBlur = 0;
-      c.fillStyle = '#fff'; c.beginPath(); c.arc(0,-2-wb,1.5,0,Math.PI*2); c.fill();
-      c.fillStyle = '#858';
-      c.beginPath();
-      c.moveTo(-6,-12-wb); c.lineTo(6,-12-wb); c.lineTo(5,-8-wb); c.lineTo(-5,-8-wb);
-      c.closePath(); c.fill();
-      c.fillStyle = '#f4f'; c.shadowColor = '#f4f'; c.shadowBlur = 4;
-      c.fillRect(-5,-11-wb,10,2);
-      c.shadowBlur = 0;
-      c.fillStyle = '#636';
-      c.fillRect(-16,-10-wb,5,6);
-      c.fillRect(11,-10-wb,5,6);
-    }
-
-    c.restore();
-
-    // Target ring
-    c.strokeStyle = t.flash > 0 ? '#fff' : t.color + '60';
-    c.lineWidth = 1;
-    c.setLineDash([3,3]);
-    c.beginPath(); c.arc(t.x, t.y, t.size + 4, 0, Math.PI*2); c.stroke();
-    c.setLineDash([]);
-
-    // HP pips
-    for (let i = 0; i < t.hp; i++) {
-      c.fillStyle = '#0f0';
-      c.fillRect(t.x - t.size + i*6, t.y - t.size - 6, 4, 3);
-    }
-  });
-
-  // Explosions
-  mgExplosions.forEach(e => {
-    let a = e.life / 20;
-    c.globalAlpha = a;
-    // Expanding ring
-    c.strokeStyle = e.color;
-    c.lineWidth = 2;
-    c.beginPath(); c.arc(e.x, e.y, e.size * (1 + (1-a)*2), 0, Math.PI*2); c.stroke();
-    // Flash
-    c.fillStyle = e.color;
-    c.beginPath(); c.arc(e.x, e.y, e.size * a, 0, Math.PI*2); c.fill();
-    // Points text
-    if (e.pts > 0) {
-      c.fillStyle = '#ff0';
-      c.font = 'bold 12px Courier New';
-      c.fillText('+$' + e.pts, e.x + 10, e.y - 10 - (1-a)*20);
-      if (e.combo > 1) {
-        c.fillStyle = '#f92';
-        c.font = 'bold 10px Courier New';
-        c.fillText(e.combo + 'x COMBO', e.x + 10, e.y - 22 - (1-a)*20);
-      }
-    }
-    c.globalAlpha = 1;
-  });
-
-  // Crosshair
-  c.strokeStyle = '#0f0';
-  c.lineWidth = 1.5;
-  let cx = mgMouseX, cy = mgMouseY;
-  c.beginPath(); c.moveTo(cx-12,cy); c.lineTo(cx-5,cy); c.stroke();
-  c.beginPath(); c.moveTo(cx+5,cy); c.lineTo(cx+12,cy); c.stroke();
-  c.beginPath(); c.moveTo(cx,cy-12); c.lineTo(cx,cy-5); c.stroke();
-  c.beginPath(); c.moveTo(cx,cy+5); c.lineTo(cx,cy+12); c.stroke();
-  c.beginPath(); c.arc(cx,cy,3,0,Math.PI*2); c.stroke();
-
-  // Combo meter
-  if (mgCombo > 1) {
-    c.fillStyle = hexColor('#f92', mgComboTimer/90);
-    c.font = 'bold 16px Courier New';
-    c.fillText(mgCombo + 'x COMBO', 10, 25);
-  }
-
-  // Timer bar
-  let tFrac = mgTime / (30*60);
-  c.fillStyle = '#222';
-  c.fillRect(10, 385, 380, 6);
-  c.fillStyle = tFrac > 0.3 ? '#f92' : '#f22';
-  c.fillRect(10, 385, 380 * tFrac, 6);
-
-  // Warning when low time
-  if (mgTime < 5*60 && Math.sin(mgTime*0.3) > 0) {
-    c.fillStyle = '#f228';
-    c.font = 'bold 20px Courier New';
-    c.fillText('TIME LOW!', 140, 200);
-  }
-
-  // HUD
-  document.getElementById('mg-kills').textContent = mgKills;
-  document.getElementById('mg-time').textContent = Math.ceil(mgTime/60);
-  document.getElementById('mg-bonus').textContent = mgBonus;
-}
 
 </script>
 </body>
