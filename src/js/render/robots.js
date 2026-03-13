@@ -419,16 +419,57 @@ export function drawRobot(ctx, e) {
 
   ctx.restore();
 
+  let hpRatio = e.hp / e.maxHp;
+
+  // Damage state: sparks at <50% HP
+  if (hpRatio < 0.5 && hpRatio > 0) {
+    let sparkCount = hpRatio < 0.25 ? 3 : 1;
+    for (let i = 0; i < sparkCount; i++) {
+      if (Math.random() < 0.4) {
+        let sx = cx + (Math.random() - 0.5) * s * 2;
+        let sy = cy + (Math.random() - 0.5) * s * 2;
+        ctx.fillStyle = '#ff0';
+        ctx.shadowColor = '#ff0';
+        ctx.shadowBlur = 4;
+        ctx.beginPath();
+        ctx.arc(sx, sy, 0.5 + Math.random(), 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+  }
+
+  // Damage state: smoke at <25% HP
+  if (hpRatio < 0.25 && hpRatio > 0) {
+    let smokeAlpha = (1 - hpRatio / 0.25) * 0.3;
+    ctx.fillStyle = hexColor('#666', smokeAlpha);
+    let smokeX = cx + Math.sin(state.gameTime * 0.1 + e.x) * 3;
+    let smokeY = cy - s - Math.abs(Math.sin(state.gameTime * 0.05)) * 4;
+    ctx.beginPath();
+    ctx.arc(smokeX, smokeY, 2 + Math.random() * 2, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(smokeX + 2, smokeY - 3, 1.5 + Math.random(), 0, Math.PI * 2);
+    ctx.fill();
+  }
+
   // HP bar
   let bw = Math.max(s * 2.5, 16);
   let bh = 3;
   let bx = cx - bw/2;
   let barOffset = name === 'Titan' ? 22 : name === 'Mech' ? 18 : name === 'Drone' ? 12 : s + 6;
   let by = cy - barOffset;
-  ctx.fillStyle = '#300';
+  ctx.fillStyle = '#200';
   ctx.fillRect(bx, by, bw, bh);
-  let hpRatio = e.hp / e.maxHp;
-  ctx.fillStyle = hpRatio > 0.5 ? '#0f0' : hpRatio > 0.25 ? '#ff0' : '#f00';
+  let hpGrad = ctx.createLinearGradient(bx, by, bx + bw * hpRatio, by);
+  if (hpRatio > 0.5) {
+    hpGrad.addColorStop(0, '#0a0'); hpGrad.addColorStop(1, '#0f0');
+  } else if (hpRatio > 0.25) {
+    hpGrad.addColorStop(0, '#a80'); hpGrad.addColorStop(1, '#ff0');
+  } else {
+    hpGrad.addColorStop(0, '#a00'); hpGrad.addColorStop(1, '#f44');
+  }
+  ctx.fillStyle = hpGrad;
   ctx.fillRect(bx, by, bw * hpRatio, bh);
   ctx.strokeStyle = '#555';
   ctx.lineWidth = 0.5;

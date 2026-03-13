@@ -162,9 +162,33 @@ export function drawBullets(ctx) {
 export function drawParticles(ctx) {
   state.particles.forEach(p => {
     ctx.globalAlpha = Math.min(1, p.life / 15);
-    ctx.fillStyle = p.color;
-    let sz = p.size || 2;
-    ctx.fillRect(p.x - sz/2, p.y - sz/2, sz, sz);
+
+    if (p.isRing) {
+      // Shockwave ring
+      let progress = 1 - (p.life / 12);
+      let radius = progress * (p.ringMax || 20);
+      ctx.strokeStyle = p.color;
+      ctx.lineWidth = 2 * (1 - progress);
+      ctx.globalAlpha = (1 - progress) * 0.6;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, radius, 0, Math.PI * 2);
+      ctx.stroke();
+    } else if (p.isFlash) {
+      // Bright flash core
+      let flashAlpha = p.life / 6;
+      ctx.fillStyle = '#fff';
+      ctx.shadowColor = '#fff';
+      ctx.shadowBlur = 15 * flashAlpha;
+      ctx.globalAlpha = flashAlpha * 0.8;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size * flashAlpha, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    } else {
+      ctx.fillStyle = p.color;
+      let sz = p.size || 2;
+      ctx.fillRect(p.x - sz/2, p.y - sz/2, sz, sz);
+    }
   });
   ctx.globalAlpha = 1;
 }

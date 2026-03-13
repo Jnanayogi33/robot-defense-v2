@@ -22,7 +22,14 @@ export function updateTowers() {
       if (d <= t.def.range && e.pathIdx > (best ? best.pathIdx : -1)) best = e;
     });
     if (!best) return;
-    t.angle = Math.atan2(best.y - t.y, best.x - t.x);
+    // Smooth rotation easing
+    let targetAngle = Math.atan2(best.y - t.y, best.x - t.x);
+    let diff = targetAngle - t.angle;
+    while (diff > Math.PI) diff -= Math.PI * 2;
+    while (diff < -Math.PI) diff += Math.PI * 2;
+    t.angle += diff * 0.15;
+    // Snap if close enough for firing accuracy
+    if (Math.abs(diff) < 0.3) t.angle = targetAngle;
     t.cooldown = t.def.rate;
     t.fireFlash = 5;
     if (towerSounds[t.def.id]) towerSounds[t.def.id]();

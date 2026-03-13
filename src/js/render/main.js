@@ -1,19 +1,47 @@
 import state from '../state.js';
 import { COLS, ROWS, TILE } from '../config.js';
 import { PATH, pathSet } from '../path.js';
+import { hexColor } from '../utils.js';
 import { drawTower } from './towers.js';
 import { drawRobot } from './robots.js';
 import { drawMines, drawBullets, drawParticles } from './effects.js';
+
+// Ambient floating particles (persistent across frames)
+const ambientParticles = [];
+for (let i = 0; i < 30; i++) {
+  ambientParticles.push({
+    x: Math.random() * COLS * TILE,
+    y: Math.random() * ROWS * TILE,
+    vx: (Math.random() - 0.5) * 0.3,
+    vy: -0.1 - Math.random() * 0.2,
+    size: 0.5 + Math.random() * 1.5,
+    alpha: 0.1 + Math.random() * 0.2,
+    phase: Math.random() * Math.PI * 2,
+  });
+}
 
 export function draw(ctx, canvas) {
   ctx.fillStyle = '#0a0a1a';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // Grid
+  // Grid with subtle intersection glow
   ctx.strokeStyle = '#151530';
   ctx.lineWidth = 0.5;
   for (let x = 0; x <= COLS; x++) { ctx.beginPath(); ctx.moveTo(x*TILE,0); ctx.lineTo(x*TILE,canvas.height); ctx.stroke(); }
   for (let y = 0; y <= ROWS; y++) { ctx.beginPath(); ctx.moveTo(0,y*TILE); ctx.lineTo(canvas.width,y*TILE); ctx.stroke(); }
+
+  // Grid intersection glow
+  let glowPulse = Math.sin(state.gameTime * 0.02) * 0.3 + 0.5;
+  ctx.fillStyle = hexColor('#224', 0.08 * glowPulse);
+  for (let x = 1; x < COLS; x++) {
+    for (let y = 1; y < ROWS; y++) {
+      if (!pathSet.has(x+','+y)) {
+        ctx.beginPath();
+        ctx.arc(x * TILE, y * TILE, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+  }
 
   // Path
   PATH.forEach(([c,r], idx) => {
@@ -65,6 +93,20 @@ export function draw(ctx, canvas) {
     ctx.fill();
     ctx.restore();
   }
+
+  // Ambient floating particles
+  ambientParticles.forEach(p => {
+    p.x += p.vx + Math.sin(state.gameTime * 0.01 + p.phase) * 0.1;
+    p.y += p.vy;
+    if (p.y < -5) { p.y = ROWS * TILE + 5; p.x = Math.random() * COLS * TILE; }
+    if (p.x < -5) p.x = COLS * TILE + 5;
+    if (p.x > COLS * TILE + 5) p.x = -5;
+    let flicker = Math.sin(state.gameTime * 0.05 + p.phase) * 0.1 + 0.9;
+    ctx.fillStyle = hexColor('#4488ff', p.alpha * flicker);
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+    ctx.fill();
+  });
 
   // Mines
   drawMines(ctx);
