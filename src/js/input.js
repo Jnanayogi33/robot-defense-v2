@@ -98,6 +98,17 @@ export function initInput(canvas) {
     handleCanvasClick(canvas, e.clientX, e.clientY);
   });
 
+  // Hover tracking
+  canvas.addEventListener('mousemove', e => {
+    let { col, row } = getGridPos(canvas, e.clientX, e.clientY);
+    state.hoverCol = col;
+    state.hoverRow = row;
+  });
+  canvas.addEventListener('mouseleave', () => {
+    state.hoverCol = -1;
+    state.hoverRow = -1;
+  });
+
   // Touch support
   canvas.addEventListener('touchstart', e => {
     e.preventDefault();

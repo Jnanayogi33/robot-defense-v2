@@ -22,8 +22,14 @@ export function update() {
   updateTowers();
   updateBullets();
 
-  state.particles.forEach(p => { p.x += p.vx; p.y += p.vy; p.life--; p.vx *= 0.94; p.vy *= 0.94; p.vy += (p.gravity || 0); });
+  state.particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy; p.life--; p.vx *= 0.94; p.vy *= 0.94; p.vy += (p.gravity || 0);
+    if (p.rotSpeed) p.rotation = (p.rotation || 0) + p.rotSpeed;
+  });
   state.particles = state.particles.filter(p => p.life > 0);
+
+  if (state.screenShake > 0.5) state.screenShake *= 0.85;
+  else state.screenShake = 0;
 
   if (state.waveActive && state.spawnQueue.length === 0 && state.enemies.length === 0) {
     state.waveActive = false;

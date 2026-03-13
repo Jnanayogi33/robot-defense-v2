@@ -17,6 +17,9 @@ const state = {
   spawnTimer: 0,
   msg: '',
   msgTimer: 0,
+  hoverCol: -1,
+  hoverRow: -1,
+  screenShake: 0,
 };
 
 export function resetState() {
@@ -34,6 +37,7 @@ export function resetState() {
   state.selectedTower = null;
   state.selling = false;
   state.placingMine = false;
+  state.screenShake = 0;
 }
 
 export default state;
