@@ -35,7 +35,7 @@ export function spawnDeathExplosion(x, y, color, size) {
   state.particles.push({
     x, y, vx: 0, vy: 0, life: 12,
     color: color, size: 0, gravity: 0,
-    isRing: true, ringMax: size * 3
+    isRing: true, ringMax: size * 3, ringLife: 12
   });
   // Rising embers
   for (let i = 0; i < 4; i++) {
@@ -77,7 +77,7 @@ export function spawnMineExplosion(x, y) {
   state.particles.push({
     x, y, vx: 0, vy: 0, life: 15,
     color: '#f42', size: 0, gravity: 0,
-    isRing: true, ringMax: 55
+    isRing: true, ringMax: 55, ringLife: 15
   });
   // Large fiery explosion
   for (let i = 0; i < 30; i++) {

@@ -165,8 +165,9 @@ export function drawParticles(ctx) {
 
     if (p.isRing) {
       // Shockwave ring
-      let progress = 1 - (p.life / 12);
-      let radius = progress * (p.ringMax || 20);
+      let maxLife = p.ringLife || 12;
+      let progress = 1 - (p.life / maxLife);
+      let radius = Math.max(0, progress * (p.ringMax || 20));
       ctx.strokeStyle = p.color;
       ctx.lineWidth = 2 * (1 - progress);
       ctx.globalAlpha = (1 - progress) * 0.6;
